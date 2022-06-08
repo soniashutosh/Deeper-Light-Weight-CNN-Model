@@ -80,6 +80,53 @@ After using optimization steps, number of multiplications performed are
  In above Equations {i_c} is number of collective block used, {i_p}  is number of passage layers are used and n_{ic} is number of repetition in that collective block.
 
 
+### Proposed Optimizer
+
+Current state-of-art methods are using Adam as optimizer for most of the plant disease detection classification tasks. This paper uses Ada-grad optimizer with some modification. Momentum term is added in it. Now optimizer used have adaptive learning rate as well as momentum term they will lead to slowing of learning rate  as well as moving in the direction of novel weights (reduces oscillations while training) which are ideal for classification. This will results in reducing of work giving better training.
+
+    w_{t} = w_{t-1} - {\eta_{t}} * V_{dw_{t}}
+
+ {\eta_{t}} = \frac{\eta}{\sqrt{\alpha_{t} + \epsilon}} 
+ {\alpha_{t}} = \sum_{i=1}^{t} ( \frac{\partial L}{\partial w_{t-1}} ) 
+ V_{dw_{t}} = \beta*V_{dw_{t-1}} + (1-\beta)*(\frac{\partial L}{\partial w_{t-1}})
+
+where L is loss calculated by the model while training, \beta lies between 0 , 1 its value used is 0.99 it is the coefficient for momentum basically it takes weighted average of the weights into the account if \beta value is 0 means there is no momentum term, \eta is learning rate its value used is 0.001 and \epsilon is small positive value used to avoid divisibility by zero.
+
+### DLC-Net Architecture and Explanation
+
+***Proposed Model solves these two problems:***
+
+1. Reduces the number of trainable parameters as well as number of multiplication operations without compromising the evaluation metrics.
+
+2. Resolves the vanishing gradient problem as much as it can.
+
+Reducing the number of trainable parameters will results in much faster training of model as well as much faster getting results or class while testing as well as vanishing gradient problem affects a lot while training which will results in slower updating of weight and less likely to achieve ideal weights are mandatory for better classification.
+
+***Layer wise information:***
+
+1. Collective Block, it tries to extract deeper features which are helpful in classification. In this block we replaces 3 * 3 mask with 1 * 3 and 3 * 1 mask as it is discussed above that it will results in reducing number of trainable parameters as well as number of matrix multiplications without compromising the evaluation metrics and in this block we are frequently using batch normalization layer for normalizing the feature vector, it helps in better learning of model. In this block, different masks or filters are used for different feature extraction and because of large number of features it tries to learn as much features as it learns as well as connectivity between layers ensures that it minimizes vanishing gradient in each collective block.
+
+2. Passage layer, it is used for minimizing vanishing gradient problem across each collective block as is provides extra smaller path for gradient to travel while back propagation. It contains layers in such a way that it ensures the output feature vector for both are both have same dimensions and are compatible for concatenation.
+
+3. Dense layer, it matches the number of classes so that there will be neuron corresponding to each class which will be activated according to the class it belongs to.
+
+4. Different pooling layers are also used for reducing the size of feature vector which is coming as input to next layer. Batch Normalization layer is used for normalizing the feature vector and ReLU is the activation function which is used except in the Dense layer, In Dense layer activation used is softmax to give the probability for each present classes. Rest layers are used for better flow of learning while training the proposed model.
+
+![proposed_architecture](https://user-images.githubusercontent.com/46646804/172687269-5c8f395b-8e09-45f8-ad1b-d591020fe626.png)
+
+
+### Implementation Flow
+
+Firstly we collect the data and then partition the data into training and testing set accordingly to number of images present in the dataset.The ratio of training images and testing images differs on the basis of total number of images of each class present in the dataset.Then normalize the image as then comparing the model on different distribution we will train the models with simple images, augmented images and generated images using generative adversial network depends on the necessity. After that we select the model which performs better in environmental conditions and that will be our final model.
+
+![flowchart](https://user-images.githubusercontent.com/46646804/172687431-5e4af9fd-9b58-49e3-919b-21b6cdf58fb0.png)
+
+### Heat-Map for dataset
+
+![heat_map](https://user-images.githubusercontent.com/46646804/172687677-b8209a75-7a81-4c5a-bac9-79c1f011ab4f.png)
+
+
+
 
 
 
