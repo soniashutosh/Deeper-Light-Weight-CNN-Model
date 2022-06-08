@@ -32,7 +32,7 @@ In place of Traditional convolution layer of 3 * 3 kernel we are using 1 * 3 the
 
 Lets suppose we have  N * M * K  as out input for our traditional convolutional layer and we are using 3 * 3 kernel with f filters and stride as 1 then 
 
-total number of multiplication performed are = 
+total number of multiplication performed are = \n
         3 * 3 * K * (N-2) * (M-2) * f
   
 total number of trainable parameters are = 
