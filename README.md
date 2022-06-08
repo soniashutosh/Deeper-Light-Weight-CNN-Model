@@ -49,9 +49,11 @@ by using this lot of matrix multiplication are reduced as well as number of trai
 
 We will further reduce the computation by substituting 3 * 3 with two different kernels one of size 1 * 3 and another of size 3 * 1. This type of convolution is known as depth-wise convolution layer. This will let us to further reduce the total number of multiplications and number of parameters by a lot.
 total number of multiplications performed are = 
+
         K * N * M + 2 * 3 * (N-2) * (M-2) * f
   
 total number of trainable parameters are = 
+
         K + 2 * 3 
 
 Earlier total number of multiplications performed in model in conventional conventional convolution are:
