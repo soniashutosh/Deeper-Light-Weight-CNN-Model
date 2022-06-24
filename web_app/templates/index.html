@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Plant Disease Detection </title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+
+  	<style>
+  		@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
+
+  		body{
+  			height: 100vh;
+			align-items: center;
+			font-family: "Raleway", Arial, sans-serif;
+			background: linear-gradient(to bottom right, #7f9ead, white);
+			/*background: #7f9ead;*/
+			margin: 0	;
+  		}
+
+  		.navbar{
+  			background: linear-gradient(to bottom right, #7f9ead, white);
+  		}
+
+  		.navbar span{
+  			font-weight: bold !important;
+  			font-size: 2rem !important;
+  		}
+
+  		h2{
+  			font-size: 1.4rem;
+  			text-align: center;
+  			font-weight: bold;
+  			padding: 1rem 0rem;
+  		}
+
+  		p{
+  			font-size: 1rem;
+  			padding-bottom: 1.5rem;
+  		}
+
+  		.image{
+  			padding-bottom: 0.3rem !important;
+  		}
+
+  		.img_sec{
+  			/*padding-top: 1rem;*/
+  			padding-left: 3rem;
+  		}
+
+  		img{
+  			border-radius: 1rem;
+  			width: 60%;
+  			height: auto;
+  		}
+
+  		.form-control{
+  			width: 75%;
+  			background: none; 
+  			border: none;
+  		}
+
+  		h3{
+  			font-size: 1.1rem;
+  			font-weight: bold;
+  		}
+
+  		.h4{
+  			font-size: 0.9rem;
+  			padding-top: 4rem;
+  		}
+
+  		.submit{
+  			padding-left: 0.8rem;
+  			padding-top: 0.5rem;
+  			padding-bottom: 2rem;
+  		}
+
+  		form p{
+  			padding-bottom: 0rem!important;
+  			margin-bottom: 0.5rem!important;
+  		}
+
+  		.footer p{
+  			padding-top: 4rem;
+  			padding-bottom: 0;
+  			margin-bottom: 0;
+  			text-align: center;
+  			font-size: 0.8rem !important;
+  		}
+
+  	</style>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-light bg-light">
+	 	<span class="navbar-brand mb-0 font-weight-bold display-1">Citrus Disease Detection</span>
+	</nav>
+
+	<section class="container about">
+		<h2> About </h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+	</section>
+	
+	<section class="container process">
+		<h2> Predict Section </h2>
+		<div class="row">
+			<div class="img_sec col-lg-6 col-md-6 col-12">
+				<img src="{{img_path}}" height="350px" width="350px" class="image">
+				{% if prediction %}
+		        	<h4> Your Prediction   : <i> {{prediction}} </i></h2>
+		        {% endif %}
+			</div>
+			<div class="col-lg-6 col-md-6 col-12">
+				<div class="container">
+					<form action="/submit" method="post" enctype="multipart/form-data">
+			            <div>          
+			            	<h3> Upload Image </h3>
+			             	<input type="file" class="form-control" placeholder="Image"  name="my_image" id="pwd">
+			            </div>
+			            <div class="submit">
+			             	<button type="submit" class="btn btn-success">Upload & Predict</button>
+			            </div>
+					</form>
+				</div>
+					
+				<div class="container">
+					<form action="/click_image" method="post" enctype="multipart/form-data">
+						<h3> Click Image</h3>
+				        <p> Wait for 2 seconds it will automatically click the image and predict. </p>
+				        <div class="submit">
+				          <button type="submit" class="btn btn-success">Click & Predict</button>
+				        </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="footer">
+		<p> Copyright ©2k22 aman ... All rights reserved....</p>
+	</section>
+
+</body>
+</html>

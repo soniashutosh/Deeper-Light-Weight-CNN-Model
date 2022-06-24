@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Plant Disease Detection </title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+
+  	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+
+  	<style>
+  		@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
+
+		body {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: "Raleway", Arial, sans-serif;
+			background: #7f9ead;
+		}
+
+		span{
+			font-size: 1.9rem!important;
+		}
+
+		.navbar{
+			position: absolute;
+			top: 5px !important;
+			left: 3px !important;
+			background: #7f9ead !important;
+		}
+
+		.main-view{
+			margin: 10px 10px !important;
+		}
+
+		.image_class{
+			padding: 0px 90px !important;
+		}
+
+		.card{
+			position: relative;
+			width: auto;
+			padding: 1rem 1rem !important;
+			height: 19rem;
+			border-radius: 10px;
+			box-shadow: 0px 5px 20px rbga(0,0,0,0,5)!important;
+			transition: 0.3s;
+			padding: 30px 50px;
+			background: #fff;
+			cursor: pointer;
+		}
+
+		.card_class{
+			height: 22rem;
+		}
+
+		.imgbox{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			transform: translateY(-80px);
+			z-index: 99;
+		}
+
+		img{
+			width: 100%;
+			border-radius: 10px;
+			box-shadow: 0px 5px 20px rbga(0,0,0,0,5);
+		}
+
+		.content{
+			padding: 10px 20px;
+			text-align: center;
+			transform: translateY(-250px)!important;
+			opacity: 0!important;
+			transition: 0.3s;
+		}
+
+		.content_class{
+			opacity: 1!important;
+			transform: translateY(-40px)!important;
+		}
+
+		.about{
+			position: static;
+			padding: 20px 20px;
+		}
+
+		.btn{
+			transform: translateY(-16px)!important;
+			padding: 1px 0.3rem !important;
+		}
+
+
+
+		@media screen and (max-width: 1200px){
+			.image_class{
+				padding: 0px 50px !important;
+			}
+			.card{
+				height: 18rem;
+			}
+			.card_class{
+				height: 21rem;
+			}
+		}
+
+		@media screen and (max-width: 1000px){
+			.image_class{
+				padding: 0px 11rem !important;
+			}
+			.card{
+				height: 18rem;
+			}
+			.card_class{
+				height: 21rem;
+			}
+			.about{
+				padding-top: 5rem;
+			}
+			.about h2{
+				text-align: center;
+			}
+		}
+
+		@media screen and (max-width: 750px){
+			.main-view{
+				padding-top: 300px!important;
+			}
+			.image_class{
+				padding: 0px 5rem !important;
+			}
+			.card{
+				height: 18rem;
+			}
+			.card_class{
+				height: 21rem;
+			}
+			.about{
+				padding-top: 5rem;
+			}
+			.about h2{
+				text-align: center;
+			}
+		}
+
+		@media screen and (max-width: 450px){
+			.main-view{
+				padding-top: 200px!important;
+			}
+			.image_class{
+				padding: 0px 1rem !important;
+			}
+			.card{
+				height: 15.4rem;
+			}
+			.card_class{
+				height: 18rem;
+			}
+			.about{
+				padding-top: 5rem;
+			}
+			.about h2{
+				text-align: center;
+			}
+		}
+
+  	</style>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-light bg-light">
+	 	<span class="navbar-brand mb-0 font-weight-bold display-1">Citrus Disease Detection</span>
+	</nav>
+
+	<section class="container main-view">
+		<div class="row">
+			<div class="image_class col-lg-6 col-sm-12 col-12">
+				<div class="card" id="card">
+					<div class="imgbox">
+						<img src="images/img_1.png" alt="No image found">
+						<div class="row">
+							<div class="btn col-4">
+								<button type="submit" class="btn btn-success">Upload</button>
+							</div>
+							<div class="btn col-4">
+								<button type="submit" class="btn btn-success">Click</button>
+							</div>
+							<div class="btn col-4">
+								<button type="submit" class="btn btn-success" onclick="predict()" id="predict">Predict</button>
+							</div>
+						</div>
+					</div>
+					<div class="content" id="content">
+						<h2> Class: This one </h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-sm-12 col-12">
+				<div class="about">
+					<h2>About</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- <div class="card">
+		<div class="imgbox">
+			<img src="images/image.jpg" alt="No image found">
+		</div>
+		<div class="content">
+			Class: This one
+			<p> 
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+			</p>
+		</div>
+	</div> -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+	<script src="js/script.js"></script>
+
+	<script>
+		function predict(){
+			var card = document.getElementById("card");
+			var content = document.getElementById("content")
+  			card.classList.toggle("card_class");
+  			content.classList.toggle("content_class");
+		}
+   	</script>
+</body>
+</html>
